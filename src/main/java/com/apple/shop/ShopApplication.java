@@ -9,6 +9,7 @@ public class ShopApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ShopApplication.class, args);
+/*
 
 		final String aa = "test";
 		int bb = 20;
@@ -21,6 +22,7 @@ public class ShopApplication {
 
 		var friend = new Friend("park");
 		System.out.println(friend.name);
+*/
 
 		//굳이 class를 사용 하는 이유
 		//1. java는 class사용
