@@ -17,9 +17,11 @@ public class ItemController {
     String list(Model model) {
 
         var result = itemRepository.findAll();
-        System.out.println(result.get(0).title);
+        model.addAttribute("items", result);
 
-        model.addAttribute("name", "kildong");
+        var a = new Item();
+        System.out.println(a.toString());
+
         return "list.html";
 
         //html에 서버데이터 넣어서 보내주려면

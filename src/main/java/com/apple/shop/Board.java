@@ -7,11 +7,11 @@ import java.util.Date;
 @Entity
 public class Board {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    public Long id;
 
     @Column
-    String title;
+    public String title;
 
     @Temporal(TemporalType.TIMESTAMP)
-    Date date;
+    public Date date;
 }
