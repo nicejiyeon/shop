@@ -27,7 +27,6 @@ public class ShopApplication {
 		//2. 관련있는 변수, 함수 한 곳에 정리할 수 있음
 		//3. 중요한 변수, 함수 원본 지킬 수 있음
 	}
-
 }
 
 class Test { //변수, 함수 보관함
