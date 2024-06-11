@@ -5,13 +5,11 @@ import jakarta.persistence.*;
 @Entity //JPA라이브러리 이용하여 이 어노테이션으로 테이블 생성
 public class Item {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    private Long id;
 
     @Column
-    public String title;
-    public Integer price;
-
-    public String none = "none";
+    private String title;
+    private Integer price;
 
     // package-private (아무것도 안붙인 상태) : 같은 폴더의 클래스에서만 사용 가능
     // public : 모든 곳에서 사용 가능 !

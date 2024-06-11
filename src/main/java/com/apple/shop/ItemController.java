@@ -21,7 +21,6 @@ public class ItemController {
 
         var a = new Item();
         System.out.println(a.toString());
-        System.out.println(a.none);
 
         return "list.html";
 
