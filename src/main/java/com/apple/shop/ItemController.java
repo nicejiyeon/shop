@@ -1,6 +1,7 @@
 package com.apple.shop;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
@@ -31,5 +32,11 @@ public class ItemController {
         //1. Model model 추가
         //2. model.addAttribue(key,value)
         //3. html에서 thymeleaf 사용
+    }
+
+    @GetMapping("/encode")
+    void encode() {
+        System.out.println("1->"+new BCryptPasswordEncoder().encode("test"));
+        System.out.println("2->"+new BCryptPasswordEncoder().encode("test"));
     }
 }
