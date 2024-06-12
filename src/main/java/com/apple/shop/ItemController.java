@@ -46,6 +46,9 @@ public class ItemController {
     @PostMapping("/add")
     String add(@RequestParam(name="title") String title,
                @RequestParam int price) {
+        
+        //파라미터로 @ModelAttribute Item item으로 받아도 됨
+        //그럼 itemRepository.save(item); 하면 끝
 
         //form으로 전송 : requestParam
         //ajax로 전송 : RequestBody
