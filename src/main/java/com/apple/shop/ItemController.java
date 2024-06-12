@@ -1,6 +1,7 @@
 package com.apple.shop;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
@@ -74,13 +75,21 @@ public class ItemController {
 
     @GetMapping("/detail/{id}") //URL Parameter문법
     String getDetail(@PathVariable int id, Model model) { //url에 입력한 값을 PathVariable로 알 수 있음
-        Optional<Item> result = itemRepository.findById((long) id);
-        if(result.isPresent()) { //값 있으면
-            System.out.println(result.get().getTitle());
-            model.addAttribute("items", result.get()); // list.html(뷰)에서 items 사용
-            return "detail.html";
-        }else {
+
+        try {
+            //throw new Exception("에러남");
+            Optional<Item> result = itemRepository.findById((long) id);
+            if(result.isPresent()) { //값 있으면
+                System.out.println(result.get().getTitle());
+                model.addAttribute("items", result.get()); // list.html(뷰)에서 items 사용
+                return "detail.html";
+            }else {
+                return "redirect:/list";
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
             return "redirect:/list";
+            //return ResponseEntity.status(400).body("zzz");
         }
     }
 
