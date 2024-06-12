@@ -45,7 +45,7 @@ public class ItemController {
 
     @PostMapping("/add")
     String add(@RequestParam(name="title") String title,
-               @RequestParam String price) {
+               @RequestParam int price) {
 
         //form으로 전송 : requestParam
         //ajax로 전송 : RequestBody
@@ -54,8 +54,13 @@ public class ItemController {
         System.out.println(price);
 
         var item = new Item();
-        item.title = title;
-        item.price = Integer.parseInt(price);
+        //public type 일 때
+        //item.title = title;
+        //item.price = Integer.parseInt(price);
+
+        //private type 일 때
+        item.setTitle(title);
+        item.setPrice(price);
         itemRepository.save(item);
         return "redirect:/list";
     }
