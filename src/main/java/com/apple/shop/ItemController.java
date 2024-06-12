@@ -6,7 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -32,6 +36,34 @@ public class ItemController {
         //1. Model model 추가
         //2. model.addAttribue(key,value)
         //3. html에서 thymeleaf 사용
+    }
+
+    @GetMapping("/write")
+    String write() {
+        return "write.html";
+    }
+
+    @PostMapping("/add")
+    String add(@RequestParam(name="title") String title,
+               @RequestParam String price) {
+
+        //form으로 전송 : requestParam
+        //ajax로 전송 : RequestBody
+
+        System.out.println(title);
+        System.out.println(price);
+
+        var item = new Item();
+        item.title = title;
+        item.price = Integer.parseInt(price);
+        itemRepository.save(item);
+        return "redirect:/list";
+    }
+
+    @PostMapping("/add2")
+    String add2(@RequestParam Map formData) {
+        System.out.println(formData);
+        return "redirect:/list";
     }
 
     @GetMapping("/encode")
