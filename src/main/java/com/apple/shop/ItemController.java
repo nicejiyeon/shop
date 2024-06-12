@@ -5,12 +5,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -72,6 +70,18 @@ public class ItemController {
     String add2(@RequestParam Map formData) {
         System.out.println(formData);
         return "redirect:/list";
+    }
+
+    @GetMapping("/detail/{id}") //URL Parameter문법
+    String getDetail(@PathVariable int id, Model model) { //url에 입력한 값을 PathVariable로 알 수 있음
+        Optional<Item> result = itemRepository.findById((long) id);
+        if(result.isPresent()) { //값 있으면
+            System.out.println(result.get().getTitle());
+            model.addAttribute("items", result.get()); // list.html(뷰)에서 items 사용
+            return "detail.html";
+        }else {
+            return "redirect:/list";
+        }
     }
 
     @GetMapping("/encode")
