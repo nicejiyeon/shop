@@ -1,6 +1,7 @@
 package com.apple.shop;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -15,7 +16,13 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ItemController {
 
+    //Repository, Service는 RequiredArgsConstructor 어노테이션이 있어야 아래처럼 작성 가능
     private final ItemRepository itemRepository;
+
+    //new ItemService() 쓰면 비효율이어서,
+    //ItemService에는 Service 어노테이션 추가하고 Controller에서 사용하면 됨
+    @Autowired
+    private final ItemService itemService;
 
     @GetMapping("/list")
     String list(Model model) {
@@ -52,18 +59,8 @@ public class ItemController {
         //form으로 전송 : requestParam
         //ajax로 전송 : RequestBody
 
-        System.out.println(title);
-        System.out.println(price);
+        itemService.saveItem(title,price);
 
-        var item = new Item();
-        //public type 일 때
-        //item.title = title;
-        //item.price = Integer.parseInt(price);
-
-        //private type 일 때
-        item.setTitle(title);
-        item.setPrice(price);
-        itemRepository.save(item);
         return "redirect:/list";
     }
 
