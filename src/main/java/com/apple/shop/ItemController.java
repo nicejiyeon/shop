@@ -90,6 +90,28 @@ public class ItemController {
         }
     }
 
+    @GetMapping("/moveEdit/{id}")
+    String edit(@PathVariable Long id, Model model) {
+        Optional<Item> result = itemRepository.findById(id);
+        if(result.isPresent()) { //값 있으면
+            model.addAttribute("items", result.get()); // edit.html(뷰)에서 items 사용
+            return "edit.html";
+        }else {
+            return "redirect:/list";
+        }
+    }
+
+    @PostMapping("/edit")
+    String edit(@RequestParam long id, @RequestParam String title, @RequestParam int price) {
+        Item item = new Item();
+        item.setId(id);
+        item.setTitle(title);
+        item.setPrice(price);
+        itemRepository.save(item);
+        return "redirect:/list";
+
+    }
+
     @GetMapping("/encode")
     void encode() {
         System.out.println("1->"+new BCryptPasswordEncoder().encode("test"));
