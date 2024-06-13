@@ -17,7 +17,7 @@ public class MemberService {
         member.setDisplayname(displayname);
         member.setPassword(encoder.encode(password));
 
-        memberRepository.save(member);  //TODO : DB에 Insert가 안됨
+        memberRepository.save(member);
 
     }
 
