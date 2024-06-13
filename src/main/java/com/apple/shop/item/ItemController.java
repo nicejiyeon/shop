@@ -2,6 +2,7 @@ package com.apple.shop.item;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -103,7 +104,12 @@ public class ItemController {
     String edit(@RequestParam long id, @RequestParam String title, @RequestParam int price) {
         itemService.editItem(id, title, price);
         return "redirect:/list";
+    }
 
+    @DeleteMapping("/item")
+    ResponseEntity edit(@RequestParam Long id) {
+        itemRepository.deleteById(id);
+        return ResponseEntity.status(200).body("삭제완료");
     }
 
     @GetMapping("/encode")
