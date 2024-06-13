@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 // Configuration, EnableWebSecurity 어노테이션을 사용하면
@@ -22,6 +24,13 @@ public class SecurityConfig {
                 authorize.requestMatchers("/**").permitAll()
         );
         return http.build();
+    }
+    
+    // encoder를 매번 new 로 생성하지 않고, bean으로 등록
+    // bean이란 spring object, bean으로 등록하면 모든 곳에서 DI식으로 가져다 쓸 수 있음
+    @Bean
+    public PasswordEncoder getPasswordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
 }
