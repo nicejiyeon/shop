@@ -16,4 +16,12 @@ public class ItemService {
         item.setPrice(price);
         itemRepository.save(item);
     }
+
+    public void editItem(long id, String title, int price) {
+        Item item = new Item();
+        item.setId(id);
+        item.setTitle(title);
+        item.setPrice(price);
+        itemRepository.save(item);
+    }
 }
