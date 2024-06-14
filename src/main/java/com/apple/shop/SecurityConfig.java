@@ -26,9 +26,11 @@ public class SecurityConfig {
         );
 
         http.formLogin((formLogin) -> formLogin.loginPage("/login") //로그인페이지 URL
-                .defaultSuccessUrl("/") //로그인 성공 URL
+                .defaultSuccessUrl("/my-page") //로그인 성공 URL
                 .failureUrl("/fail")    //로그인 실패 URL (기본적으로 /login?error로 이동)
         );
+
+        http.logout(logout -> logout.logoutUrl("/logout"));
 
         return http.build();
     }

@@ -1,15 +1,12 @@
 package com.apple.shop.member;
 
-import com.apple.shop.item.Item;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.Optional;
+import org.springframework.security.core.Authentication;
 
 @Controller
 @RequiredArgsConstructor
@@ -58,7 +55,13 @@ public class MemberController {
     }
 
     @GetMapping("/my-page")
-    public String myPage() {
+    public String myPage(Authentication auth) {
+        //컨트롤러에서 파라미터로 Authentication 받으면 현재 로그인한 사용자 정보 출력 가능
+        //Authentication 대신 principal 을 사용할 수 도 있음
+        /*System.out.println(auth);
+        System.out.println(auth.getName());
+        System.out.println(auth.getDetails());*/
+
         return "mypage.html";
     }
 }
