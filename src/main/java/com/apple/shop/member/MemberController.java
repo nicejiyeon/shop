@@ -2,11 +2,11 @@ package com.apple.shop.member;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.security.core.Authentication;
 
 @Controller
 @RequiredArgsConstructor
@@ -61,6 +61,13 @@ public class MemberController {
         /*System.out.println(auth);
         System.out.println(auth.getName());
         System.out.println(auth.getDetails());*/
+
+//        MyUserDetailService.CustomUser a = (CustomUser) auth.getPrincipal();
+//        System.out.println(auth.displayName);
+
+        var a = auth.getPrincipal();
+        MyUserDetailService.CustomUser aa = (MyUserDetailService.CustomUser) auth.getPrincipal();
+        System.out.println("aa.displayname:"+aa.displayName);
 
         return "mypage.html";
     }

@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class MyUserDetailService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
@@ -29,7 +29,24 @@ public class MyUserDetailService implements UserDetailsService {
         var user = result.get();
         List<GrantedAuthority> auth = new ArrayList<>();
         auth.add(new SimpleGrantedAuthority("normal")); //유저의 권한 -> 다른 클래스에서 권한도 같이 출력
-        return new User(user.getUsername(), user.getPassword(), auth);
+
+        //return new User(user.getUsername(), user.getPassword(), auth);
+        CustomUser customUser = new CustomUser(user.getUsername(), user.getPassword(), auth);
+        customUser.id = user.getId();
+        customUser.displayName = user.getDisplayname();
+        return customUser;
+    }
+
+    class CustomUser extends User {
+
+        public Long id;
+        public String displayName;
+
+        public CustomUser(String username,
+                          String password,
+                          List<GrantedAuthority> authorities) {
+            super(username, password, authorities);
+        }
     }
 
 } 
