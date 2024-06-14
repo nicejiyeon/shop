@@ -1,6 +1,7 @@
 package com.apple.shop;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -23,6 +24,12 @@ public class SecurityConfig {
         http.authorizeHttpRequests((authorize) ->
                 authorize.requestMatchers("/**").permitAll()
         );
+
+        http.formLogin((formLogin) -> formLogin.loginPage("/login") //로그인페이지 URL
+                .defaultSuccessUrl("/") //로그인 성공 URL
+                .failureUrl("/fail")    //로그인 실패 URL (기본적으로 /login?error로 이동)
+        );
+
         return http.build();
     }
     

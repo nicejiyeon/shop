@@ -51,4 +51,14 @@ public class MemberController {
         var result = memberRepository.findAll();
         System.out.println("result:"+result);
     }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login.html";
+    }
+
+    @GetMapping("/my-page")
+    public String myPage() {
+        return "mypage.html";
+    }
 }
