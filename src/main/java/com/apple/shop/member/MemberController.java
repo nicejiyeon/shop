@@ -64,4 +64,12 @@ public class MemberController {
 
         return "mypage.html";
     }
+
+    @GetMapping("/register")
+    public String register(Authentication auth) {
+        if(auth.isAuthenticated()) {
+            return "redirect:/list";
+        }
+        return "register";
+    }
 }

@@ -14,6 +14,7 @@ public class Item {
     @Column
     private String title;
     private Integer price;
+    private String writer;
 
     // package-private (아무것도 안붙인 상태) : 같은 폴더의 클래스에서만 사용 가능
     // public : 모든 곳에서 사용 가능 !

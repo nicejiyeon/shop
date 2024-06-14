@@ -9,10 +9,11 @@ public class ItemService {
 
     private final ItemRepository itemRepository;
 
-    public void saveItem(String title, int price) {
+    public void saveItem(String title, int price, String writer) {
         var item = new Item();
         item.setTitle(title);
         item.setPrice(price);
+        item.setWriter(writer);
         itemRepository.save(item);
     }
 

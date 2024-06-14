@@ -3,4 +3,12 @@
     <a href="/list">List</a>
     <a href="/write">Write</a>
     <a href="/member">Join</a>
+
+    <div sec:authorize="isAuthenticated()">
+        <span sec:authentication="principal.username"></span>
+    </div>
+
+    <div sec:authorize="isAuthenticated()">
+        <a href="/logout">로그아웃</a>
+    </div>
 </div>
