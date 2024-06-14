@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 // Configuration, EnableWebSecurity 어노테이션을 사용하면
 // Spring Security 설정파일로 사용
@@ -20,7 +22,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        http.csrf((csrf) -> csrf.disable());
+        http.csrf(csrf -> csrf.csrfTokenRepository(csrfTokenRepository())
+                .ignoringRequestMatchers("/login")  //CSRF보안 무시할 페이지
+        );
         http.authorizeHttpRequests((authorize) ->
                 authorize.requestMatchers("/**").permitAll()
         );
@@ -34,7 +38,14 @@ public class SecurityConfig {
 
         return http.build();
     }
-    
+
+    @Bean
+    public CsrfTokenRepository csrfTokenRepository() {
+        HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
+        repository.setHeaderName("X-XSRF-TOKEN");
+        return repository;
+    }
+
     // encoder를 매번 new 로 생성하지 않고, bean으로 등록
     // bean이란 spring object, bean으로 등록하면 모든 곳에서 DI식으로 가져다 쓸 수 있음
     @Bean
